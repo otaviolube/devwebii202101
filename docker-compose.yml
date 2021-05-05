@@ -1,0 +1,58 @@
+version: "3.1"
+
+services:
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: faesa123
+    networks:
+      - api-network
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    depends_on: 
+      - mongo
+    ports:
+      - 8082:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: faesa123
+    networks: 
+      - api-network
+  postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: faesa123
+    networks: 
+      - api-network
+  adminer:
+    image: adminer
+    restart: always
+    depends_on: 
+      - postgres
+    ports:
+      - 8080:8080
+    networks: 
+      - api-network
+  api:
+    build: ./backend/
+    image: otaviolube/devwebii-api:v5
+    restart: always
+    depends_on: 
+      - mongo
+    ports:
+      - 3000:3000
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    driver: bridge

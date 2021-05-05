@@ -1,4 +1,5 @@
 const alunosModel = require('../models/alunos-model');
+const mongodb = require('../infra/mongodb');
 
 exports.adicionarAluno = (req, res) => {
     alunosModel.find((err, alunos) => {
