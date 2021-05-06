@@ -1,6 +1,7 @@
-const alunosModelPg = require('../models/alunos-model-pg');
+const alunoModelPg = require('../models/alunos-model-pg');
 
 exports.adicionarAlunoPg = async (req, res) => {
+
     const exemploAluno = await alunoModelPg.create({
         nome: "Seu Creyson",
         email: "seucreyson.lube@faesa.br",
@@ -8,6 +9,11 @@ exports.adicionarAlunoPg = async (req, res) => {
         data_criacao: Date(),
         data_alteracao: null
     });
+
+    res.json({
+        status: "ok",
+        resultado: exemploAluno
+    })
 }
 
 exports.listarAlunosPg = async (req, res) => {

@@ -1,8 +1,11 @@
 const express = require('express');
+const sync = require('./infra/postgres').sincronizarPostgres;
 const app = express();
 
 const port = 3000;
 const hostname = '0.0.0.0';
+
+(async () => await sync())() //Sincroniza o meu Postgres
 
 const defaultRoutes = require('./routes/default-routes');
 const alunosRoutes = require('./routes/alunos-routes');

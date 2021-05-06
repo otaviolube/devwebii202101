@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://root:faesa123@localhost:5432/postgres', {dialect: 'postgres'});
+const Sequelize = require('../infra/postgres').Sequelize;
+const postgres = require('../infra/postgres').sequelize;
 
-const AlunoModel = sequelize.define('aluno', {
+const AlunoModel = postgres.define('aluno', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
