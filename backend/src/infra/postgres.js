@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize} = require('sequelize');
 const sequelize = new Sequelize('postgres://root:faesa123@localhost:5432/postgres', {dialect: 'postgres'});
 
 

@@ -13,13 +13,13 @@ const alunosRoutesPg = require('./routes/alunos-routes-pg');
 
 app.use(express.urlencoded({
     extended: true
-}));
+})); 
 
 app.use(express.json());
 
 app.use('/', defaultRoutes);
 app.use('/api/alunos/', alunosRoutes);
-app.use('/api/alunospg/', alunosRoutesPg)
+app.use('/api/alunospg/', alunosRoutesPg);
 
 
 app.listen(port, hostname, () => {

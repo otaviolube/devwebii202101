@@ -2,23 +2,42 @@ const alunoModelPg = require('../models/alunos-model-pg');
 
 exports.adicionarAlunoPg = async (req, res) => {
 
-    const exemploAluno = await alunoModelPg.create({
-        nome: "Seu Creyson",
-        email: "seucreyson.lube@faesa.br",
-        idade: 35,
-        data_criacao: Date(),
-        data_alteracao: null
+    const aluno = req.body;
+
+    console.log(aluno);
+
+    const alunoExiste = await alunoModelPg.findAll({
+        where: {
+            email: aluno.email
+        }
     });
 
-    res.json({
-        status: "ok",
-        resultado: exemploAluno
-    })
+    console.log(alunoExiste);
+    if(alunoExiste.length > 0){
+        res.json({
+            status: "fail",
+            resultado: "Já existe um aluno com o e-mail cadastrado"
+        })
+    }else{
+        const alunoInserido = await alunoModelPg.create({
+            nome: aluno.nome,
+            email: aluno.email,
+            idade: aluno.idade,
+            data_criacao: Date(),
+            data_alteracao: null
+        });
+        res.json({
+            status: "ok",
+            resultado: alunoInserido
+        })
+    }
+
+    
 }
 
 exports.listarAlunosPg = async (req, res) => {
     try{
-        const alunos = await alunosModelPg.findAll();
+        const alunos = await alunoModelPg.findAll();
         res.json({
             status: 'ok',
             alunos: alunos
