@@ -1,9 +1,15 @@
+require('dotenv').config({
+    path: process.env.NODE_ENV === "development" ? ".env.development" : ".env"
+});
+
+console.log(process.env.NODE_ENV);
+
 const express = require('express');
 const sync = require('./infra/postgres').sincronizarPostgres;
 const app = express();
 
-const port = 3000;
-const hostname = '0.0.0.0';
+const port = process.env.APP_PORT;
+const hostname = process.env.APP_HOSTNAME;
 
 (async () => await sync())() //Sincroniza o meu Postgres
 
